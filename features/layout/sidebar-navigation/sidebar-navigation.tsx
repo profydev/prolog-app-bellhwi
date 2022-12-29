@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { Routes } from "@config/routes";
 import { NavigationContext } from "./navigation-context";
@@ -153,9 +153,42 @@ const CollapseMenuItem = styled(MenuItemButton)`
 `;
 
 export function SidebarNavigation() {
+  const bodyEl =
+    typeof window !== "undefined" ? document.querySelector("body") : null;
+  const breakpointDesktop = 1024;
   const router = useRouter();
   const { isSidebarCollapsed, toggleSidebar } = useContext(NavigationContext);
+  const [mounted, setMounted] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMobileScreen, setMobileScreen] = useState(
+    bodyEl != undefined && bodyEl.clientWidth >= breakpointDesktop
+      ? false
+      : true
+  );
+
+  const setScreenSize = () => {
+    if (bodyEl != undefined) {
+      // Desktop screen
+      if (bodyEl.clientWidth >= breakpointDesktop) {
+        setMobileScreen(false);
+      }
+      // Mobile screen
+      else {
+        setMobileScreen(true);
+      }
+    }
+  };
+
+  useEffect(() => {
+    setMounted(true);
+    window.addEventListener("resize", setScreenSize);
+
+    return () => {
+      window.removeEventListener("resize", setScreenSize);
+    };
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <Container isCollapsed={isSidebarCollapsed}>
@@ -164,7 +197,9 @@ export function SidebarNavigation() {
           <Logo
             src={
               isSidebarCollapsed
-                ? "/icons/logo-small.svg"
+                ? isMobileScreen
+                  ? "/icons/logo-large.svg"
+                  : "/icons/logo-small.svg"
                 : "/icons/logo-large.svg"
             }
             alt="logo"
