@@ -192,6 +192,7 @@ export function SidebarNavigation() {
 
   if (!mounted) return null;
 
+
   return (
     <Container isCollapsed={isSidebarCollapsed}>
       <FixedContainer>
