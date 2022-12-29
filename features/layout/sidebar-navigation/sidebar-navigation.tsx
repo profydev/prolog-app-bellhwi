@@ -156,6 +156,7 @@ export function SidebarNavigation() {
   const router = useRouter();
   const { isSidebarCollapsed, toggleSidebar } = useContext(NavigationContext);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <Container isCollapsed={isSidebarCollapsed}>
       <FixedContainer>
