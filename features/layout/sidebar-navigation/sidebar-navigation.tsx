@@ -146,7 +146,7 @@ const LinkList = styled(List)`
 
 const CollapseMenuItem = styled(MenuItemButton)`
   display: none;
-
+  transform: ${({ isCollapsed }) => (isCollapsed ? "rotate(180deg)" : null)};
   @media (min-width: ${breakpoint("desktop")}) {
     display: flex;
   }
@@ -156,6 +156,7 @@ export function SidebarNavigation() {
   const router = useRouter();
   const { isSidebarCollapsed, toggleSidebar } = useContext(NavigationContext);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <Container isCollapsed={isSidebarCollapsed}>
       <FixedContainer>
@@ -193,7 +194,10 @@ export function SidebarNavigation() {
               text="Support"
               iconSrc="/icons/support.svg"
               isCollapsed={isSidebarCollapsed}
-              onClick={() => alert("Support")}
+              onClick={() => {
+                parent.location =
+                  "mailto:support@prolog-app.com?subject=Support Request:";
+              }}
             />
             <CollapseMenuItem
               text="Collapse"
