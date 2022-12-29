@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { Routes } from "@config/routes";
 import { NavigationContext } from "./navigation-context";
@@ -146,16 +146,52 @@ const LinkList = styled(List)`
 
 const CollapseMenuItem = styled(MenuItemButton)`
   display: none;
-
+  transform: ${({ isCollapsed }) => (isCollapsed ? "rotate(180deg)" : null)};
   @media (min-width: ${breakpoint("desktop")}) {
     display: flex;
   }
 `;
 
 export function SidebarNavigation() {
+  const bodyEl =
+    typeof window !== "undefined" ? document.querySelector("body") : null;
+  const breakpointDesktop = 1024;
   const router = useRouter();
   const { isSidebarCollapsed, toggleSidebar } = useContext(NavigationContext);
+  const [mounted, setMounted] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMobileScreen, setMobileScreen] = useState(
+    bodyEl != undefined && bodyEl.clientWidth >= breakpointDesktop
+      ? false
+      : true
+  );
+
+  const setScreenSize = () => {
+    if (bodyEl != undefined) {
+      // Desktop screen
+      if (bodyEl.clientWidth >= breakpointDesktop) {
+        setMobileScreen(false);
+      }
+      // Mobile screen
+      else {
+        setMobileScreen(true);
+      }
+    }
+  };
+
+  useEffect(() => {
+    setMounted(true);
+    window.addEventListener("resize", setScreenSize);
+
+    console.log(typeof space(8));
+
+    return () => {
+      window.removeEventListener("resize", setScreenSize);
+    };
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <Container isCollapsed={isSidebarCollapsed}>
       <FixedContainer>
@@ -163,7 +199,9 @@ export function SidebarNavigation() {
           <Logo
             src={
               isSidebarCollapsed
-                ? "/icons/logo-small.svg"
+                ? isMobileScreen
+                  ? "/icons/logo-large.svg"
+                  : "/icons/logo-small.svg"
                 : "/icons/logo-large.svg"
             }
             alt="logo"
@@ -189,11 +227,12 @@ export function SidebarNavigation() {
           </LinkList>
 
           <List>
-            <MenuItemButton
+            <MenuItemLink
+              href="mailto:support@prolog-app.com?subject=Support Request:"
               text="Support"
               iconSrc="/icons/support.svg"
               isCollapsed={isSidebarCollapsed}
-              onClick={() => alert("Support")}
+              isActive={false}
             />
             <CollapseMenuItem
               text="Collapse"
