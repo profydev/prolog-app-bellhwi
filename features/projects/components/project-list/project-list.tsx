@@ -18,11 +18,33 @@ const List = styled.ul`
   }
 `;
 
+const LoadingCircle = styled.img`
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 0px auto;
+  margin-top: 153px;
+  animation: rotation 2s infinite linear;
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    margin-top: 129px;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+`;
+
 export function ProjectList() {
   const { data, isLoading, isError, error } = useProjects();
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return <LoadingCircle src={"/icons/loading-circle.svg"}></LoadingCircle>;
   }
 
   if (isError) {
