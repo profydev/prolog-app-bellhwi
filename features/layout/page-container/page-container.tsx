@@ -3,12 +3,17 @@ import Head from "next/head";
 import styled from "styled-components";
 import { SidebarNavigation } from "../sidebar-navigation";
 import { color, displayFont, textFont, space, breakpoint } from "@styles/theme";
+import packageJSON from "../../../package.json";
 
 type PageContainerProps = {
   children: React.ReactNode;
   title: string;
   info: string;
 };
+
+const VERSION = `Version: ${JSON.stringify(packageJSON.version)
+  .split('"')
+  .join("")}`;
 
 const Container = styled.div`
   display: flex;
@@ -52,6 +57,63 @@ const Info = styled.div`
   ${textFont("md", "regular")}
 `;
 
+const Footer = styled.footer`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9fafb;
+  width: 100%;
+  padding: 24px 0px;
+  box-sizing: border-box;
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    flex-direction: row;
+    height: 60px;
+    padding: 18px 32px;
+  }
+`;
+
+const FooterText = styled.p`
+  color: #98a2b3;
+  margin: 0px;
+  line-height: 24px;
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    width: 160px;
+    order: 1;
+  }
+`;
+
+const FooterLinks = styled.ul`
+  list-style: none;
+  display: flex;
+  padding: 0px;
+  margin: 0px;
+  line-height: 24px;
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    order: 2;
+  }
+`;
+
+const FooterLink = styled.li`
+  padding-right: 24px;
+  font-weight: 500;
+  color: #667085;
+`;
+
+const Logo = styled.img`
+  width: 23px;
+  height: 33px;
+  margin: 24px 0px;
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    margin: 24px 0px 24px 147px;
+    order: 3;
+  }
+`;
+
 export function PageContainer({ children, title, info }: PageContainerProps) {
   // combine title in a single string to prevent below warning
   // "Warning: A title element received an array with more than 1 element as children."
@@ -71,6 +133,16 @@ export function PageContainer({ children, title, info }: PageContainerProps) {
           <Info>{info}</Info>
           {children}
         </ContentContainer>
+        <Footer>
+          <FooterLinks>
+            <FooterLink>Docs</FooterLink>
+            <FooterLink>API</FooterLink>
+            <FooterLink>Help</FooterLink>
+            <FooterLink style={{ paddingRight: "0px" }}>Community</FooterLink>
+          </FooterLinks>
+          <Logo src={"/icons/logo-small.svg"}></Logo>
+          <FooterText>{VERSION}</FooterText>
+        </Footer>
       </Main>
     </Container>
   );
