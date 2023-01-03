@@ -31,7 +31,7 @@ describe("Project List", () => {
       const languageNames = ["React", "Node.js", "Python"];
 
       // get all project cards
-      cy.get("main")
+      cy.get("main div")
         .find("li")
         .each(($el, index) => {
           // check that project data is rendered
