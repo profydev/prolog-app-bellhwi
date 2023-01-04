@@ -73,7 +73,12 @@ export function ProjectList() {
   const ERROR_TEXT = "There was a problem while loading the project data";
 
   if (isLoading) {
-    return <LoadingCircle src={"/icons/loading-circle.svg"}></LoadingCircle>;
+    return (
+      <LoadingCircle
+        id="loading-circle"
+        src={"/icons/loading-circle.svg"}
+      ></LoadingCircle>
+    );
   }
 
   if (isError) {
@@ -85,6 +90,7 @@ export function ProjectList() {
         <ErrorText
           style={{ marginRight: "8px", cursor: "pointer" }}
           onClick={() => refetch()}
+          id="try-again"
         >
           Try again
         </ErrorText>

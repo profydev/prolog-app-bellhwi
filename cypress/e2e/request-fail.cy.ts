@@ -7,8 +7,8 @@ describe("Project Data Load Failed", () => {
 
     // open projects page
     cy.visit("http://localhost:3000/dashboard");
-
     cy.wait("@getProjects");
+    cy.wait(4000);
   });
 
   it("renders error screen", () => {
@@ -18,7 +18,7 @@ describe("Project Data Load Failed", () => {
 
   it("reload data when pressing try again", () => {
     // check try again button is reloading data
-    cy.get("#error-screen p:nth-child(2)").contains("Try again").click();
-    cy.get("img").should("have.attr", "src", "/icons/loading-circle.svg");
+    cy.get("#try-again").click();
+    cy.get("#loading-circle");
   });
 });
