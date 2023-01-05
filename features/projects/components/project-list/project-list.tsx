@@ -73,12 +73,7 @@ export function ProjectList() {
   const ERROR_TEXT = "There was a problem while loading the project data";
 
   if (isLoading) {
-    return (
-      <LoadingCircle
-        id="loading-circle"
-        src={"/icons/loading-circle.svg"}
-      ></LoadingCircle>
-    );
+    return <div>Loading</div>;
   }
 
   if (isError) {
