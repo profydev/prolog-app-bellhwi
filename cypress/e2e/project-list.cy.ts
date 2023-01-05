@@ -18,6 +18,9 @@ describe("Project List", () => {
     // open projects page
     cy.visit("http://localhost:3000/dashboard");
 
+    // check loading circle image
+    cy.get("img").should("have.attr", "src", "/icons/loading-circle.svg");
+
     // wait for request to resolve
     cy.wait("@getProjects");
   });

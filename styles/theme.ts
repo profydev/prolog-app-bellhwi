@@ -55,10 +55,14 @@ export type Theme = {
       xs: Font;
       sm: Font;
       md: Font;
+      lg: Font;
+      xl: Font;
     };
     display: {
+      xs: Font;
       sm: Font;
       md: Font;
+      xl: Font;
     };
   };
 };
@@ -208,8 +212,59 @@ export const theme = {
           font-weight: 600;
         `,
       },
+      lg: {
+        regular: `
+          font-size: 1.125rem;
+          line-height: 1.75rem;
+          font-weight: 400;
+        `,
+        medium: `
+          font-size: 1.125rem;
+          line-height: 1.75rem;
+          font-weight: 500;
+        `,
+        semibold: `
+          font-size: 1.125rem;
+          line-height: 1.75rem;
+          font-weight: 600;
+        `,
+      },
+      xl: {
+        regular: `
+          font-size: 1.25rem;
+          line-height: 1.875rem;
+          font-weight: 400;
+        `,
+        medium: `
+          font-size: 1.25rem;
+          line-height: 1.875rem;
+          font-weight: 500;
+        `,
+        semibold: `
+          font-size: 1.25rem;
+          line-height: 1.875rem;
+          font-weight: 600;
+        `,
+      },
     },
     display: {
+      xs: {
+        regular: `
+          font-size: 1.5rem;
+          line-height: 2rem;
+          font-weight: 400;
+        `,
+        medium: `
+          font-size: 1.5rem;
+          line-height: 2rem;
+          font-weight: 500;
+        `,
+        semibold: `
+          font-size: 1.5rem;
+          line-height: 2rem;
+          font-weight: 600;
+        `,
+      },
       sm: {
         regular: `
           font-size: 1.875rem;
@@ -241,6 +296,23 @@ export const theme = {
         semibold: `
           font-size: 2.25rem;
           line-height: 2.75rem;
+          font-weight: 600;
+        `,
+      },
+      xl: {
+        regular: `
+          font-size: 3.75rem;
+          line-height: 4.5rem;
+          font-weight: 400;
+        `,
+        medium: `
+          font-size: 3.75rem;
+          line-height: 4.5rem;
+          font-weight: 500;
+        `,
+        semibold: `
+          font-size: 3.75rem;
+          line-height: 4.5rem;
           font-weight: 600;
         `,
       },

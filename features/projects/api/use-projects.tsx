@@ -3,5 +3,7 @@ import { getProjects } from "@api/projects";
 import type { Project } from "@api/projects.types";
 
 export function useProjects() {
-  return useQuery<Project[], Error>(["projects"], getProjects);
+  return useQuery<Project[], Error>(["projects"], getProjects, {
+    refetchOnWindowFocus: false,
+  });
 }
