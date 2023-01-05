@@ -226,7 +226,9 @@ const Template: ComponentStory<typeof Badge> = ({ size, color }) => (
         justifyContent: "center",
       }}
     >
-      <img src={"icons/plus.svg"} />
+      <Badge color={color} size={size}>
+        <img src={"icons/plus.svg"} />
+      </Badge>
     </BadgeContainer>
   </Container>
 );
