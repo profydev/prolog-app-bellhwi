@@ -34,6 +34,7 @@ const Container = styled.div<{ size: BadgeSize; color: BadgeColor }>`
   display: flex;
   align-items: center;
   border-radius: ${space(4)};
+  letter-spacing: 0.02em;
 
   ${(props) => {
     switch (props.size) {
