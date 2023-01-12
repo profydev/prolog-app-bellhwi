@@ -16,10 +16,17 @@ export enum BadgeColor {
   success = "success",
 }
 
+export enum BadgeIcon {
+  leading = "leading",
+  trailing = "trailing",
+  only = "only",
+}
+
 type BadgeProps = {
   children: React.ReactNode;
   size?: BadgeSize;
   color?: BadgeColor;
+  icon?: BadgeIcon;
 };
 
 const Container = styled.div<{ size: BadgeSize; color: BadgeColor }>`
@@ -27,6 +34,7 @@ const Container = styled.div<{ size: BadgeSize; color: BadgeColor }>`
   display: flex;
   align-items: center;
   border-radius: ${space(4)};
+  letter-spacing: 0.02em;
 
   ${(props) => {
     switch (props.size) {

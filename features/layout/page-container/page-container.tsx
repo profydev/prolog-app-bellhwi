@@ -62,7 +62,7 @@ const Footer = styled.footer`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: #f9fafb;
+  background-color: ${color("gray", 50)};
   width: 100%;
   padding: 24px 0px;
   box-sizing: border-box;
@@ -75,7 +75,7 @@ const Footer = styled.footer`
 `;
 
 const FooterText = styled.p`
-  color: #98a2b3;
+  color: ${color("gray", 400)};
   margin: 0px;
   line-height: 24px;
 
@@ -100,7 +100,7 @@ const FooterLinks = styled.ul`
 const FooterLink = styled.li`
   padding-right: 24px;
   font-weight: 500;
-  color: #667085;
+  color: ${color("gray", 500)};
 `;
 
 const Logo = styled.img`
