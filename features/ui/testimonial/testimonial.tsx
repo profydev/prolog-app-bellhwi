@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { color, textFont } from "@styles/theme";
+import { color, displayFont, textFont } from "@styles/theme";
 
 type TestimonialProps = {
   primary?: boolean;
@@ -12,6 +12,7 @@ type TestimonialProps = {
 
 const Container = styled.div<{ primary: any }>`
   width: 33%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -23,20 +24,31 @@ const Container = styled.div<{ primary: any }>`
   &:not(:first-child) {
     margin-left: 64px;
   }
+  border-radius: 16px;
+  box-sizing: border-box;
 `;
 
-const Heading = styled.p<{ primary: any }>`
-  color: ${(props) =>
-    props.primary ? color("primary", 700) : color("gray", 700)};
+const Heading = styled.p`
+  color: ${color("primary", 700)};
   ${textFont("sm", "semibold")};
   text-align: center;
+  margin: 0px;
 `;
 
 const Content = styled.p<{ primary: any }>`
   color: ${(props) =>
     props.primary ? color("primary", 900) : color("gray", 900)};
-  ${textFont("xs", "medium")};
+  ${displayFont("xs", "medium")};
   text-align: center;
+  margin: 12px 0px 0px;
+`;
+
+const Profile = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
 `;
 
 const Author = styled.p<{ primary: any }>`
@@ -44,6 +56,7 @@ const Author = styled.p<{ primary: any }>`
     props.primary ? color("primary", 900) : color("gray", 900)};
   ${textFont("xs", "medium")};
   ${textFont("md", "medium")};
+  margin: 16px 0px 4px;
 `;
 
 const Company = styled.p<{ primary: any }>`
@@ -51,6 +64,7 @@ const Company = styled.p<{ primary: any }>`
     props.primary ? color("primary", 500) : color("gray", 500)};
   ${textFont("xs", "medium")};
   ${textFont("sm", "regular")};
+  margin: 0px;
 `;
 
 export function Testimonial({
@@ -63,12 +77,14 @@ export function Testimonial({
 }: TestimonialProps) {
   return (
     <Container primary={primary}>
-      <Heading primary={primary}>{heading}</Heading>
+      <Heading>{heading}</Heading>
       <Content primary={primary}>{content}</Content>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={avatar} />
-      <Author primary={primary}>{author}</Author>
-      <Company primary={primary}>{company}</Company>
+      <Profile>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={avatar} />
+        <Author primary={primary}>{author}</Author>
+        <Company primary={primary}>{company}</Company>
+      </Profile>
     </Container>
   );
 }

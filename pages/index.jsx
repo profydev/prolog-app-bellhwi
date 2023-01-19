@@ -82,24 +82,28 @@ const Hero = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${color("gray", 50)};
+  padding-bottom: 96px;
 `;
 
 const Heading = styled.h1`
   ${displayFont("xl", "semibold")};
   color: ${color("gray", 900)};
-  margin: 96px 0px 0px;
   letter-spacing: -0.02em;
+  padding-left: 8px;
 `;
 
 const Text = styled.p`
+  text-align: center;
   color: ${color("gray", 500)};
   ${textFont("xl", "regular")};
+  padding-left: 12px;
 `;
 
 const TextSmall = styled.p`
   text-align: center;
   color: ${color("gray", 500)};
   ${textFont("md", "medium")};
+  margin: 0px;
 `;
 
 const SocialSection = styled.div`
@@ -111,23 +115,27 @@ const CompanyLogos = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 1216px;
+  margin: 32px auto 0px;
+  padding-left: 12px;
 `;
 
 const TestimonialSection = styled.div`
   text-align: center;
-  padding: 96px 0px;
   background-color: white;
 `;
 
 const Testimonials = styled.div`
   display: flex;
   padding: 0px 93.5px;
+  margin: 64px 0px 96px;
+  height: 416px;
 `;
 
 const ContactButton = styled.button`
   position: fixed;
   bottom: 2.5rem;
-  right: 2.5rem;
+  right: 1.5rem;
   padding: 1rem;
   background: #7f56d9;
   border-radius: 50%;
@@ -156,13 +164,18 @@ const IssuesPage = () => {
         <a href={Routes.projects}>Dashboard</a>
       </Header>
       <Hero>
-        <Heading>Your Issues In Sight. At All Times.</Heading>
-        <Text>
+        <Heading style={{ margin: "96px 0px 0px" }}>
+          Your Issues In Sight. At All Times.
+        </Heading>
+        <Text style={{ width: "648px", margin: "24px 0px 64px" }}>
           Powerful error tracking and monitoring for software applications.
           Trusted by over 4,000 startups.
         </Text>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={"images/landing-macbook.svg"} />
+        <img
+          src={"images/landing-macbook.svg"}
+          style={{ marginLeft: "12px" }}
+        />
       </Hero>
       <SocialSection>
         <TextSmall>Join 4,000+ companies using Prolog</TextSmall>
@@ -174,8 +187,12 @@ const IssuesPage = () => {
         </CompanyLogos>
       </SocialSection>
       <TestimonialSection>
-        <Heading>Don’t Only Trust Our Words</Heading>
-        <Text>Our customers around the globe share their opinions.</Text>
+        <Heading style={{ margin: "96px 0px 0px" }}>
+          Don’t Only Trust Our Words
+        </Heading>
+        <Text style={{ marginBottom: "0px" }}>
+          Our customers around the globe share their opinions.
+        </Text>
         <Testimonials>
           {testimonials.map((testimonial, index) => (
             <Testimonial {...testimonial} key={index}></Testimonial>
