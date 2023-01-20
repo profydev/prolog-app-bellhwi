@@ -18,6 +18,10 @@ type Font = {
   semibold: string;
 };
 
+type Shadow = {
+  xs: string;
+};
+
 export type Theme = {
   color: {
     gray: Color;
@@ -25,6 +29,9 @@ export type Theme = {
     error: Color;
     warning: Color;
     success: Color;
+  };
+  shadow: {
+    xs: string;
   };
   space: {
     0: string;
@@ -134,6 +141,9 @@ export const theme = {
       800: "#05603A",
       900: "#054F31",
     },
+  },
+  shadow: {
+    xs: "0px 1px 2px rgba(16, 24, 40, 0.05)",
   },
   space: {
     0: "0",
@@ -329,6 +339,10 @@ export function space(...names: Array<keyof Theme["space"]>) {
     const spaces = names.map((name) => theme.space[name]);
     return spaces.join(" ");
   };
+}
+
+export function shadow(name: keyof Theme["shadow"]) {
+  return ({ theme }: { theme: Theme }) => theme.shadow[name];
 }
 
 export function breakpoint(name: keyof Theme["breakpoint"]) {
