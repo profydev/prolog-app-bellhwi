@@ -18,6 +18,10 @@ type Font = {
   semibold: string;
 };
 
+type Shadow = {
+  xs: string;
+};
+
 export type Theme = {
   color: {
     gray: Color;
@@ -25,6 +29,9 @@ export type Theme = {
     error: Color;
     warning: Color;
     success: Color;
+  };
+  shadow: {
+    xs: string;
   };
   space: {
     0: string;
@@ -55,10 +62,14 @@ export type Theme = {
       xs: Font;
       sm: Font;
       md: Font;
+      lg: Font;
+      xl: Font;
     };
     display: {
+      xs: Font;
       sm: Font;
       md: Font;
+      xl: Font;
     };
   };
 };
@@ -130,6 +141,9 @@ export const theme = {
       800: "#05603A",
       900: "#054F31",
     },
+  },
+  shadow: {
+    xs: "0px 1px 2px rgba(16, 24, 40, 0.05)",
   },
   space: {
     0: "0",
@@ -208,8 +222,59 @@ export const theme = {
           font-weight: 600;
         `,
       },
+      lg: {
+        regular: `
+          font-size: 1.125rem;
+          line-height: 1.75rem;
+          font-weight: 400;
+        `,
+        medium: `
+          font-size: 1.125rem;
+          line-height: 1.75rem;
+          font-weight: 500;
+        `,
+        semibold: `
+          font-size: 1.125rem;
+          line-height: 1.75rem;
+          font-weight: 600;
+        `,
+      },
+      xl: {
+        regular: `
+          font-size: 1.25rem;
+          line-height: 1.875rem;
+          font-weight: 400;
+        `,
+        medium: `
+          font-size: 1.25rem;
+          line-height: 1.875rem;
+          font-weight: 500;
+        `,
+        semibold: `
+          font-size: 1.25rem;
+          line-height: 1.875rem;
+          font-weight: 600;
+        `,
+      },
     },
     display: {
+      xs: {
+        regular: `
+          font-size: 1.5rem;
+          line-height: 2rem;
+          font-weight: 400;
+        `,
+        medium: `
+          font-size: 1.5rem;
+          line-height: 2rem;
+          font-weight: 500;
+        `,
+        semibold: `
+          font-size: 1.5rem;
+          line-height: 2rem;
+          font-weight: 600;
+        `,
+      },
       sm: {
         regular: `
           font-size: 1.875rem;
@@ -244,6 +309,23 @@ export const theme = {
           font-weight: 600;
         `,
       },
+      xl: {
+        regular: `
+          font-size: 3.75rem;
+          line-height: 4.5rem;
+          font-weight: 400;
+        `,
+        medium: `
+          font-size: 3.75rem;
+          line-height: 4.5rem;
+          font-weight: 500;
+        `,
+        semibold: `
+          font-size: 3.75rem;
+          line-height: 4.5rem;
+          font-weight: 600;
+        `,
+      },
     },
   },
 };
@@ -257,6 +339,10 @@ export function space(...names: Array<keyof Theme["space"]>) {
     const spaces = names.map((name) => theme.space[name]);
     return spaces.join(" ");
   };
+}
+
+export function shadow(name: keyof Theme["shadow"]) {
+  return ({ theme }: { theme: Theme }) => theme.shadow[name];
 }
 
 export function breakpoint(name: keyof Theme["breakpoint"]) {

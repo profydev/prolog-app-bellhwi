@@ -11,10 +11,23 @@ export default {
   },
 } as ComponentMeta<typeof Badge>;
 
-const Template: ComponentStory<typeof Badge> = ({ size, color }) => (
-  <div style={{ padding: 50 }}>
+const Template: ComponentStory<typeof Badge> = ({ size, color, icon }) => (
+  <div id="container" style={{ padding: 50 }}>
     <Badge color={color} size={size}>
-      Label
+      {icon == "leading" ? (
+        <>
+          <img src={"icons/arrow-up.svg"} style={{ marginRight: "4px" }} />{" "}
+          Label
+        </>
+      ) : icon == "trailing" ? (
+        <>
+          Label <img src={"icons/x.svg"} style={{ marginLeft: "4px" }} />
+        </>
+      ) : icon == "only" ? (
+        <img src={"icons/plus.svg"} />
+      ) : (
+        "Label"
+      )}
     </Badge>
   </div>
 );
