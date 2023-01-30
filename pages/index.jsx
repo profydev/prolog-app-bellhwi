@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Routes } from "@config/routes";
 import { color, textFont, displayFont } from "@styles/theme";
-import { Testimonial } from "@features/ui";
+import { Testimonial, StyledButton } from "@features/ui";
 
 const menuItems = [
   { text: "Home", href: Routes.home },
@@ -161,7 +161,14 @@ const IssuesPage = () => {
             </MenuList>
           ))}
         </MenuContainer>
-        <a href={Routes.projects}>Dashboard</a>
+        <StyledButton>
+          <a
+            href={Routes.projects}
+            style={{ color: "white", textDecoration: "none" }}
+          >
+            Open Dashboard
+          </a>
+        </StyledButton>
       </Header>
       <Hero>
         <Heading style={{ margin: "96px 0px 0px" }}>
