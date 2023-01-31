@@ -42,12 +42,9 @@ export const SelectStyle = styled.div<{
   hint: SelectHint;
   error: SelectError;
 }>`
+  position: relative;
   -webkit-appearance: none;
   appearance: none;
-  background-image: url(${chevronDown});
-  background-repeat: no-repeat;
-  background-position: calc(100% - 14px) center;
-  background-size: 20px;
   padding: 10px 14px;
   border-radius: 8px;
   background-color: white;
@@ -56,6 +53,19 @@ export const SelectStyle = styled.div<{
   box-sizing: border-box;
   display: flex;
   align-items: center;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: calc(100% - 28px);
+    background-image: url(${chevronDown});
+    background-repeat: repeat;
+    translate: -50% -50%;
+    transform: ${(props) => (props.state == "open" ? "rotate(180deg)" : null)};
+  }
   ${textFont("md", "regular")};
 
   ${(props) => {
