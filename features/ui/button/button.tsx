@@ -224,6 +224,20 @@ ${(props) => {
   }}
 `;
 
+const IconImage = styled.img<{ icon: ButtonIcon }>`
+  filter: brightness(0) invert(1);
+  ${(props) =>
+    props.icon == "leading"
+      ? css`
+          padding-right: 8px;
+        `
+      : props.icon == "trailing"
+      ? css`
+          padding-left: 8px;
+        `
+      : null}
+`;
+
 export enum ButtonSize {
   sm = "sm",
   md = "md",
@@ -255,7 +269,7 @@ export enum ButtonIcon {
 }
 
 type ButtonProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   size?: ButtonSize;
   color?: ButtonColor;
   state?: ButtonState;
@@ -263,7 +277,7 @@ type ButtonProps = {
 };
 
 export function StyledButton({
-  children,
+  children = "Button CTA",
   size = ButtonSize.md,
   state = ButtonState.default,
   color = ButtonColor.primary,
@@ -271,7 +285,13 @@ export function StyledButton({
 }: ButtonProps) {
   return (
     <ButtonStyle size={size} color={color} state={state} icon={icon}>
-      {children}
+      {icon == "leading" || icon == "only" ? (
+        <IconImage icon={icon} src={"/icons/check.svg"} />
+      ) : null}
+      {icon == "only" ? null : children}
+      {icon == "trailing" ? (
+        <IconImage icon={icon} src={"/icons/check.svg"} />
+      ) : null}
     </ButtonStyle>
   );
 }

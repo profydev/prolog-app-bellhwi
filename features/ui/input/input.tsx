@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { color, shadow, textFont } from "@styles/theme";
-import chevronDown from "../../../public/icons/chevron-down.svg";
 
 export enum InputState {
   empty = "empty",
@@ -115,10 +114,10 @@ const Hint = styled.p<{ error: InputError }>`
 type InputProps = {
   children?: React.ReactNode;
   state: InputState;
-  icon: InputIcon;
-  label: InputLabel;
-  hint: InputHint;
-  error: InputError;
+  icon?: InputIcon;
+  label?: InputLabel;
+  hint?: InputHint;
+  error?: InputError;
 };
 
 export function Input({
@@ -147,7 +146,7 @@ export function Input({
             style={{ marginRight: "8px" }}
           />
         ) : null}
-        olivia@untitledui.com
+        {!children && "olivia@untitledui.com"}
         {error == "error" ? (
           /* eslint-disable-next-line @next/next/no-img-element */
           <img

@@ -24,23 +24,12 @@ const Template: ComponentStory<typeof StyledButton> = ({
   icon,
 }) => (
   <div style={{ padding: 50 }}>
-    <StyledButton color={color} size={size} state={state} icon={icon}>
-      {icon == "leading" ? (
-        <>
-          <img src={"icons/circle.svg"} style={{ paddingRight: "8px" }} />
-          Button CTA
-        </>
-      ) : icon == "trailing" ? (
-        <>
-          Button CTA
-          <img src={"icons/circle.svg"} style={{ paddingLeft: "8px" }} />
-        </>
-      ) : icon == "only" ? (
-        <img src={"icons/circle.svg"} />
-      ) : (
-        "Button CTA"
-      )}
-    </StyledButton>
+    <StyledButton
+      color={color}
+      size={size}
+      state={state}
+      icon={icon}
+    ></StyledButton>
   </div>
 );
 

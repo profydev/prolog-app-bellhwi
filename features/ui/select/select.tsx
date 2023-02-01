@@ -156,10 +156,10 @@ const Hint = styled.p<{ error: SelectError }>`
 type SelectProps = {
   children?: React.ReactNode;
   state: SelectState;
-  icon: SelectIcon;
-  label: SelectLabel;
-  hint: SelectHint;
-  error: SelectError;
+  icon?: SelectIcon;
+  label?: SelectLabel;
+  hint?: SelectHint;
+  error?: SelectError;
 };
 
 export function Select({

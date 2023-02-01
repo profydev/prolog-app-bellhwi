@@ -5,6 +5,7 @@ import { ProjectLanguage } from "@api/projects.types";
 import { useProjects } from "@features/projects";
 import { useGetIssues } from "../../api";
 import { IssueRow } from "./issue-row";
+import { IssueFilter } from "./issue-filter";
 
 const Container = styled.div`
   background: white;
@@ -99,6 +100,7 @@ export function IssueList() {
 
   return (
     <Container>
+      <IssueFilter></IssueFilter>
       <Table>
         <thead>
           <HeaderRow>
