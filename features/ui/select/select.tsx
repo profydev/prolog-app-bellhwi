@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { color, shadow, textFont } from "@styles/theme";
-import chevronDown from "../../../public/icons/chevron-down.svg";
+import { useState } from "react";
 
 export enum SelectState {
   empty = "empty",
@@ -42,14 +42,14 @@ export const SelectStyle = styled.div<{
   hint: SelectHint;
   error: SelectError;
 }>`
+  cursor: default;
   position: relative;
+  width: 100%;
   -webkit-appearance: none;
   appearance: none;
   padding: 10px 14px;
   border-radius: 8px;
   background-color: white;
-  width: 320px;
-  height: 44px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -61,7 +61,7 @@ export const SelectStyle = styled.div<{
     height: 20px;
     top: 50%;
     left: calc(100% - 28px);
-    background-image: url(${chevronDown});
+    background-image: url('/icons/chevron-down.svg');
     background-repeat: repeat;
     translate: -50% -50%;
     transform: ${(props) => (props.state == "open" ? "rotate(180deg)" : null)};
@@ -126,16 +126,16 @@ const OptionContainer = styled.div`
   box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.1),
     0px 4px 6px -2px rgba(16, 24, 40, 0.05);
   border-radius: 8px;
-  width: 320px;
-  height: 320px;
   margin-top: 8px;
+  z-index: 100;
 `;
 
 const OptionStyle = styled.div<{ selected?: boolean }>`
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 14px;
+  padding: 14px;
   color: ${color("gray", 900)};
   background-color: ${(props) =>
     props.selected ? color("primary", 25) : "white"};
@@ -155,24 +155,54 @@ const Hint = styled.p<{ error: SelectError }>`
 
 type SelectProps = {
   children?: React.ReactNode;
+  defaultOption?: string[];
+  placeholder?: string;
   state: SelectState;
-  icon: SelectIcon;
-  label: SelectLabel;
-  hint: SelectHint;
-  error: SelectError;
+  icon?: SelectIcon;
+  label?: SelectLabel;
+  hint?: SelectHint;
+  error?: SelectError;
+  labelName?: string;
+  options?: any;
+  errorMsg?: string;
+  hintMsg?: string;
+  selectedIndex?: number;
+  setStatusSelectedIndex?: number;
+  onClick: () => void;
 };
 
 export function Select({
   children,
+  placeholder = "Select team member",
+  defaultOption = ["Olivia Rhye"],
+  labelName = "Team member",
+  options = [
+    "Phoenix Baker",
+    <>
+      Olivia Rhye
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/icons/check-select.svg" alt="Check select" />
+    </>,
+    "Lana Steiner",
+    "Demi Wilkinson",
+    "Candice Wu",
+    "Natali Craig",
+    "Drew Cano",
+  ],
+  errorMsg = "This is an error message.",
+  hintMsg = "This is a hint text to help user.",
   state = SelectState.empty,
   label = SelectLabel.none,
   hint = SelectHint.none,
   error = SelectError.none,
   icon = SelectIcon.none,
+  selectedIndex = 0,
+  onClick,
 }: SelectProps) {
+  const [selectedOptionIndex, setSelectedOptionIndex] = useState(selectedIndex);
   return (
-    <SelectContainer>
-      {label == "label" ? <Label>Team member</Label> : null}
+    <SelectContainer onClick={onClick}>
+      {label == "label" ? <Label>{labelName}</Label> : null}
       <SelectStyle
         icon={icon}
         state={state}
@@ -188,29 +218,29 @@ export function Select({
             style={{ marginRight: "8px" }}
           />
         ) : null}
-        {state == "empty" ? "Select team member" : "Olivia Rhye"}
+        {state == "empty" ? placeholder : defaultOption[selectedOptionIndex]}
       </SelectStyle>
       {state == "open" ? (
         <OptionContainer>
-          <OptionStyle>Phoenix Baker</OptionStyle>
-          <OptionStyle selected>
-            Olivia Rhye
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/icons/check-select.svg" alt="Check select" />
-          </OptionStyle>
-          <OptionStyle>Lana Steiner</OptionStyle>
-          <OptionStyle>Demi Wilkinson</OptionStyle>
-          <OptionStyle>Candice Wu</OptionStyle>
-          <OptionStyle>Natali Craig</OptionStyle>
-          <OptionStyle>Drew Cano</OptionStyle>
+          {options.map((option: string, index: number) => (
+            <OptionStyle
+              key={index}
+              selected={index == selectedOptionIndex ? true : false}
+              onClick={() => {
+                setSelectedOptionIndex(index);
+              }}
+            >
+              {option}
+              {index == selectedOptionIndex ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img src="/icons/check-select.svg" alt="Check select" />
+              ) : null}
+            </OptionStyle>
+          ))}
         </OptionContainer>
       ) : null}
       {hint == "hint" ? (
-        <Hint error={error}>
-          {error
-            ? "This is an error message."
-            : "This is a hint text to help user."}
-        </Hint>
+        <Hint error={error}>{error ? errorMsg : hintMsg}</Hint>
       ) : null}
     </SelectContainer>
   );

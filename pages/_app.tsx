@@ -9,18 +9,22 @@ import { NavigationProvider } from "@features/layout";
 import { GlobalStyle } from "@styles/global-style";
 import { theme } from "@styles/theme";
 import { queryClient } from "@api/query-client";
+import store from "../store";
+import { Provider } from "react-redux";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <NavigationProvider>
-          <GlobalStyle />
-          <Component {...pageProps} />
-        </NavigationProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <NavigationProvider>
+            <GlobalStyle />
+            <Component {...pageProps} />
+          </NavigationProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </ThemeProvider>
+    </Provider>
   );
 }
 

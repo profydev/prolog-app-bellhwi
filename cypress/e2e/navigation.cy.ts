@@ -5,7 +5,7 @@ describe("Sidebar Navigation", () => {
 
   context("desktop resolution", () => {
     beforeEach(() => {
-      cy.viewport(1025, 900);
+      cy.viewport(1280, 900);
     });
 
     it("links are working", () => {

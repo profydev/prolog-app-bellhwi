@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import capitalize from "lodash/capitalize";
 import { color, space, textFont } from "@styles/theme";
-import { Badge, BadgeColor, BadgeSize } from "@features/ui";
+import {
+  Checkbox,
+  CheckboxSize,
+  Badge,
+  BadgeColor,
+  BadgeSize,
+} from "@features/ui";
 import { ProjectLanguage } from "@api/projects.types";
 import { IssueLevel } from "@api/issues.types";
 import type { Issue } from "@api/issues.types";
@@ -53,6 +59,9 @@ export function IssueRow({ projectLanguage, issue }: IssueRowProps) {
 
   return (
     <Row>
+      <Cell>
+        <Checkbox size={CheckboxSize.md} />
+      </Cell>
       <IssueCell>
         <LanguageIcon
           src={`/icons/${projectLanguage}.svg`}
@@ -66,6 +75,10 @@ export function IssueRow({ projectLanguage, issue }: IssueRowProps) {
           <div>{firstLineOfStackTrace}</div>
         </div>
       </IssueCell>
+      <Cell>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/icons/chart.png" alt="chart" />
+      </Cell>
       <Cell>
         <Badge color={levelColors[level]} size={BadgeSize.sm}>
           {capitalize(level)}

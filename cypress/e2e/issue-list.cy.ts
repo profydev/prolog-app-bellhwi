@@ -90,7 +90,7 @@ describe("Issue List", () => {
         .find("tr")
         .eq(0)
         .find("td")
-        .eq(2)
+        .eq(4)
         .contains(mockIssues1.items[0].numEvents);
       // test users number match the data
       cy.get("main")
@@ -98,7 +98,7 @@ describe("Issue List", () => {
         .find("tr")
         .eq(0)
         .find("td")
-        .eq(3)
+        .eq(5)
         .contains(mockIssues1.items[0].numUsers);
     });
   });
