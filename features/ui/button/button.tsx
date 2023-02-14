@@ -222,6 +222,92 @@ ${(props) => {
         `;
     }
   }}
+
+ &:hover {
+    ${(props) => {
+      switch (props.color) {
+        case ButtonColor.primary:
+          return css`
+            background: ${color("primary", 700)};
+            border: 1px solid ${color("primary", 700)};
+            box-shadow: ${shadow("xs")};
+          `;
+        case ButtonColor.secondary:
+          return css`
+            background: ${color("primary", 100)};
+            border: 1px solid ${color("primary", 100)};
+            color: ${color("primary", 700)};
+            box-shadow: ${shadow("xs")};
+          `;
+        case ButtonColor.gray:
+          return css`
+            background: ${color("gray", 50)};
+            border: 1px solid ${color("gray", 300)};
+            color: ${color("gray", 700)};
+            box-shadow: ${shadow("xs")};
+          `;
+        case ButtonColor.empty:
+          return css`
+            background: ${color("primary", 50)};
+            color: ${color("primary", 700)};
+          `;
+        case ButtonColor.emptyGray:
+          return css`
+            background: ${color("gray", 50)};
+            color: ${color("gray", 600)};
+          `;
+        case ButtonColor.error:
+          return css`
+            background: ${color("error", 700)};
+            border: 1px solid ${color("error", 700)};
+            box-shadow: ${shadow("xs")};
+          `;
+      }
+    }}
+  }
+
+  &:focus {
+    ${(props) => {
+      switch (props.color) {
+        case ButtonColor.primary:
+          return css`
+            background: ${color("primary", 700)};
+            border: 1px solid ${color("primary", 700)};
+            box-shadow: ${shadow("xs")},
+              0px 0px 0px 4px ${color("primary", 100)};
+          `;
+        case ButtonColor.secondary:
+          return css`
+            background: ${color("primary", 50)};
+            border: 1px solid ${color("primary", 50)};
+            color: ${color("primary", 700)};
+            box-shadow: ${shadow("xs")},
+              0px 0px 0px 4px ${color("primary", 100)};
+          `;
+        case ButtonColor.gray:
+          return css`
+            background: #fff;
+            border: 1px solid ${color("gray", 300)};
+            color: ${color("gray", 700)};
+            box-shadow: ${shadow("xs")}, 0px 0px 0px 4px ${color("gray", 100)};
+          `;
+        case ButtonColor.empty:
+          return css`
+            color: ${color("primary", 700)};
+          `;
+        case ButtonColor.emptyGray:
+          return css`
+            color: ${color("gray", 500)};
+          `;
+        case ButtonColor.error:
+          return css`
+            background: ${color("error", 600)};
+            border: 1px solid ${color("error", 600)};
+            box-shadow: ${shadow("xs")}, 0px 0px 0px 4px ${color("error", 100)};
+          `;
+      }
+    }}
+  }
 `;
 
 const IconImage = styled.img<{ icon: ButtonIcon }>`

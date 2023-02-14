@@ -26,13 +26,15 @@ const Template: ComponentStory<typeof Input> = ({
   error,
 }) => (
   <div style={{ padding: 50 }}>
-    <Input
-      icon={icon}
-      state={state}
-      label={label}
-      hint={hint}
-      error={error}
-    ></Input>
+    <div style={{ width: "160px", height: "44px" }}>
+      <Input
+        icon={icon}
+        state={state}
+        label={label}
+        hint={hint}
+        error={error}
+      ></Input>
+    </div>
   </div>
 );
 
