@@ -395,6 +395,7 @@ export function StyledButton({
       fill={fill}
       onClick={onClick}
     >
+    <ButtonStyle size={size} color={color} state={state} icon={icon}>
       {icon == "leading" || icon == "only" ? (
         <IconImage icon={icon} src={"/icons/check.svg"} />
       ) : null}
