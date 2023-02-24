@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Routes } from "@config/routes";
 import { color, textFont, displayFont } from "@styles/theme";
 import { Testimonial, StyledButton } from "@features/ui";
+import { useState } from "react";
 
 const menuItems = [
   { text: "Home", href: Routes.home },
@@ -46,6 +47,47 @@ const testimonials = [
     company: "Engineering Manager, Catalog",
   },
 ];
+
+const ModalContainer = styled.div`
+  background: rgba(52, 64, 84, 0.6);
+  backdrop-filter: blur(8px);
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+`;
+
+const Modal = styled.div`
+  padding: 24px;
+  background: white;
+  box-shadow: 0px 20px 24px -4px rgba(16, 24, 40, 0.1),
+    0px 8px 8px -4px rgba(16, 24, 40, 0.04);
+  border-radius: 12px;
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ModalHeading = styled.h4`
+  ${textFont("lg", "medium")};
+  color: ${color("gray", 900)};
+  margin: 28px 0px 0px;
+`;
+
+const ModalContent = styled.p`
+  ${textFont("sm", "regular")};
+  color: ${color("gray", 500)};
+  margin: 8px 0px 32px;
+  text-align: center;
+  width: 352px;
+`;
 
 const Header = styled.header`
   width: 100%;
@@ -149,8 +191,53 @@ const ContactButton = styled.button`
 `;
 
 const IssuesPage = () => {
+  const [modalOn, setModalOn] = useState(false);
+
   return (
     <div>
+      {modalOn ? (
+        <ModalContainer>
+          <Modal>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/icons/contact-mail.svg" alt="mail icon" />
+              <ModalHeading>Contact us Via Email</ModalHeading>
+              <ModalContent>
+                Any questions? Send us an email at prolog@profy.dev. We usually
+                answer within 24 hours.
+              </ModalContent>
+            </div>
+            <div style={{ display: "flex" }}>
+              <StyledButton
+                size="lg"
+                color="gray"
+                onClick={() => {
+                  setModalOn(false);
+                }}
+              >
+                Cancel
+              </StyledButton>
+              <div style={{ marginLeft: "12px" }}>
+                <StyledButton>
+                  <a
+                    href="mailto:support@prolog-app.com?subject=Support Request:"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    Open Email App
+                  </a>
+                </StyledButton>
+              </div>
+            </div>
+          </Modal>
+        </ModalContainer>
+      ) : null}
+
       <Header>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/icons/logo-large.svg" alt="Prolog logo" />
@@ -206,13 +293,7 @@ const IssuesPage = () => {
           ))}
         </Testimonials>
       </TestimonialSection>
-      <ContactButton
-        onClick={() =>
-          alert(
-            "Implement this in Challenge 2 - Modal:\n\nhttps://profy.dev/rjs-challenge-modal"
-          )
-        }
-      >
+      <ContactButton onClick={() => setModalOn(true)}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/icons/message.svg" alt="Contact" />
       </ContactButton>
