@@ -23,6 +23,7 @@ export const ButtonStyle = styled.button<{
   color: ButtonColor;
   state: ButtonState;
   icon: ButtonIcon;
+  fill: boolean;
 }>`
   cursor: pointer;
   border-radius: 8px;
@@ -30,6 +31,7 @@ export const ButtonStyle = styled.button<{
   display: flex;
   align-items: center;
   box-sizing: border-box;
+  justify-content: center;
 
   // remove default button styles
   border: none;
@@ -223,6 +225,12 @@ ${(props) => {
     }
   }}
 
+  ${(props) =>
+    props.fill
+      ? css`
+          width: 100%;
+        `
+      : null}
  &:hover {
     ${(props) => {
       switch (props.color) {
@@ -353,6 +361,10 @@ export enum ButtonIcon {
   trailing = "trailing",
   only = "only",
 }
+export enum ButtonFill {
+  none = "none",
+  fill = "fill",
+}
 
 type ButtonProps = {
   children?: React.ReactNode;
@@ -360,6 +372,8 @@ type ButtonProps = {
   color?: ButtonColor;
   state?: ButtonState;
   icon?: ButtonIcon;
+  fill?: any;
+  onClick?: () => void;
 };
 
 export function StyledButton({
@@ -368,9 +382,18 @@ export function StyledButton({
   state = ButtonState.default,
   color = ButtonColor.primary,
   icon = ButtonIcon.none,
+  fill,
+  onClick,
 }: ButtonProps) {
   return (
-    <ButtonStyle size={size} color={color} state={state} icon={icon}>
+    <ButtonStyle
+      size={size}
+      color={color}
+      state={state}
+      icon={icon}
+      fill={fill}
+      onClick={onClick}
+    >
       {icon == "leading" || icon == "only" ? (
         <IconImage icon={icon} src={"/icons/check.svg"} />
       ) : null}

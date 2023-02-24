@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column-reverse;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 25px;
@@ -15,6 +16,15 @@ const Container = styled.div`
 
 const FilterContainer = styled.div`
   display: flex;
+  width: 100%;
+`;
+
+const BoxContainer = styled.div`
+  width: 160px;
+  height: 44px;
+  margin-right: 16px;
+  margin-bottom: 16px;
+  width: 100%;
 `;
 
 export const IssueFilter = () => {
@@ -33,6 +43,11 @@ export const IssueFilter = () => {
       </StyledButton>
       <FilterContainer>
         <div style={{ width: "160px", height: "44px", marginRight: "16px" }}>
+      <StyledButton icon={ButtonIcon.leading} fill={true}>
+        Resolve selected issues
+      </StyledButton>
+      <FilterContainer>
+        <BoxContainer>
           <Select
             state={statusSelectOpen ? SelectState.open : SelectState.filled}
             options={stateSelectOptions}
@@ -48,6 +63,8 @@ export const IssueFilter = () => {
           ></Select>
         </div>
         <div style={{ width: "160px", height: "44px", marginRight: "16px" }}>
+        </BoxContainer>
+        <BoxContainer>
           <Select
             state={levelSelectOpen ? SelectState.open : SelectState.filled}
             options={levelSelectOptions}
@@ -61,6 +78,8 @@ export const IssueFilter = () => {
           ></Select>
         </div>
         <div style={{ width: "280px", height: "44px" }}>
+        </BoxContainer>
+        <BoxContainer>
           <Input
             state={InputState.empty}
             icon={InputIcon.iconSearch}
@@ -68,6 +87,7 @@ export const IssueFilter = () => {
             placeholder="Project Name"
           ></Input>
         </div>
+        </BoxContainer>
       </FilterContainer>
     </Container>
   );
