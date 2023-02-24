@@ -38,6 +38,11 @@ export const IssueFilter = () => {
 
   return (
     <Container>
+      <StyledButton icon={ButtonIcon.leading}>
+        Resolve selected issues
+      </StyledButton>
+      <FilterContainer>
+        <div style={{ width: "160px", height: "44px", marginRight: "16px" }}>
       <StyledButton icon={ButtonIcon.leading} fill={true}>
         Resolve selected issues
       </StyledButton>
@@ -56,6 +61,8 @@ export const IssueFilter = () => {
               }
             }}
           ></Select>
+        </div>
+        <div style={{ width: "160px", height: "44px", marginRight: "16px" }}>
         </BoxContainer>
         <BoxContainer>
           <Select
@@ -69,6 +76,8 @@ export const IssueFilter = () => {
                 : setLevelSelectOpen(true);
             }}
           ></Select>
+        </div>
+        <div style={{ width: "280px", height: "44px" }}>
         </BoxContainer>
         <BoxContainer>
           <Input
@@ -77,6 +86,7 @@ export const IssueFilter = () => {
             label={InputLabel.custom}
             placeholder="Project Name"
           ></Input>
+        </div>
         </BoxContainer>
       </FilterContainer>
     </Container>

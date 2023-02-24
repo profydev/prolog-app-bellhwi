@@ -231,7 +231,6 @@ ${(props) => {
           width: 100%;
         `
       : null}
-
  &:hover {
     ${(props) => {
       switch (props.color) {
