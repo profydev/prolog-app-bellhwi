@@ -5,7 +5,10 @@ import { ProjectLanguage } from "@api/projects.types";
 import { useProjects } from "@features/projects";
 import { useGetIssues } from "../../api";
 import { IssueRow } from "./issue-row";
-import { IssueFilter } from "./issue-filter";
+import { Checkbox, CheckboxSize } from "@features/ui";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setIssues } from "store";
 
 const Container = styled.div`
   background: white;
@@ -74,6 +77,20 @@ export function IssueList() {
 
   const issuesPage = useGetIssues(page);
   const projects = useProjects();
+  const issues = useSelector((state: any) => state.issues);
+  const dispatch = useDispatch();
+  const projectIdToLanguage = (projects.data || []).reduce(
+    (prev, project) => ({
+      ...prev,
+      [project.id]: project.language,
+    }),
+    {} as Record<string, ProjectLanguage>
+  );
+  const { items, meta } = issuesPage.data || {};
+
+  useEffect(() => {
+    dispatch(setIssues(items));
+  }, []);
 
   if (projects.isLoading || issuesPage.isLoading) {
     return <div>Loading</div>;
@@ -89,35 +106,37 @@ export function IssueList() {
     return <div>Error loading issues: {issuesPage.error.message}</div>;
   }
 
-  const projectIdToLanguage = (projects.data || []).reduce(
-    (prev, project) => ({
-      ...prev,
-      [project.id]: project.language,
-    }),
-    {} as Record<string, ProjectLanguage>
-  );
-  const { items, meta } = issuesPage.data || {};
-
   return (
     <Container>
-      <IssueFilter></IssueFilter>
       <Table>
         <thead>
           <HeaderRow>
+            <HeaderCell>
+              <Checkbox size={CheckboxSize.md} />
+            </HeaderCell>
             <HeaderCell>Issue</HeaderCell>
+            <HeaderCell>Graph : 14d</HeaderCell>
             <HeaderCell>Level</HeaderCell>
             <HeaderCell>Events</HeaderCell>
             <HeaderCell>Users</HeaderCell>
           </HeaderRow>
         </thead>
         <tbody>
-          {(items || []).map((issue) => (
-            <IssueRow
-              key={issue.id}
-              issue={issue}
-              projectLanguage={projectIdToLanguage[issue.projectId]}
-            />
-          ))}
+          {issues == null
+            ? (items || []).map((issue) => (
+                <IssueRow
+                  key={issue.id}
+                  issue={issue}
+                  projectLanguage={projectIdToLanguage[issue.projectId]}
+                />
+              ))
+            : (issues || []).map((issue: any) => (
+                <IssueRow
+                  key={issue.id}
+                  issue={issue}
+                  projectLanguage={projectIdToLanguage[issue.projectId]}
+                />
+              ))}
         </tbody>
       </Table>
       <PaginationContainer>

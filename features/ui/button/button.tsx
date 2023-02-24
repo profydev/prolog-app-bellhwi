@@ -23,6 +23,7 @@ export const ButtonStyle = styled.button<{
   color: ButtonColor;
   state: ButtonState;
   icon: ButtonIcon;
+  fill: boolean;
 }>`
   cursor: pointer;
   border-radius: 8px;
@@ -30,6 +31,7 @@ export const ButtonStyle = styled.button<{
   display: flex;
   align-items: center;
   box-sizing: border-box;
+  justify-content: center;
 
   // remove default button styles
   border: none;
@@ -222,6 +224,99 @@ ${(props) => {
         `;
     }
   }}
+
+  ${(props) =>
+    props.fill
+      ? css`
+          width: 100%;
+        `
+      : null}
+
+ &:hover {
+    ${(props) => {
+      switch (props.color) {
+        case ButtonColor.primary:
+          return css`
+            background: ${color("primary", 700)};
+            border: 1px solid ${color("primary", 700)};
+            box-shadow: ${shadow("xs")};
+          `;
+        case ButtonColor.secondary:
+          return css`
+            background: ${color("primary", 100)};
+            border: 1px solid ${color("primary", 100)};
+            color: ${color("primary", 700)};
+            box-shadow: ${shadow("xs")};
+          `;
+        case ButtonColor.gray:
+          return css`
+            background: ${color("gray", 50)};
+            border: 1px solid ${color("gray", 300)};
+            color: ${color("gray", 700)};
+            box-shadow: ${shadow("xs")};
+          `;
+        case ButtonColor.empty:
+          return css`
+            background: ${color("primary", 50)};
+            color: ${color("primary", 700)};
+          `;
+        case ButtonColor.emptyGray:
+          return css`
+            background: ${color("gray", 50)};
+            color: ${color("gray", 600)};
+          `;
+        case ButtonColor.error:
+          return css`
+            background: ${color("error", 700)};
+            border: 1px solid ${color("error", 700)};
+            box-shadow: ${shadow("xs")};
+          `;
+      }
+    }}
+  }
+
+  &:focus {
+    ${(props) => {
+      switch (props.color) {
+        case ButtonColor.primary:
+          return css`
+            background: ${color("primary", 700)};
+            border: 1px solid ${color("primary", 700)};
+            box-shadow: ${shadow("xs")},
+              0px 0px 0px 4px ${color("primary", 100)};
+          `;
+        case ButtonColor.secondary:
+          return css`
+            background: ${color("primary", 50)};
+            border: 1px solid ${color("primary", 50)};
+            color: ${color("primary", 700)};
+            box-shadow: ${shadow("xs")},
+              0px 0px 0px 4px ${color("primary", 100)};
+          `;
+        case ButtonColor.gray:
+          return css`
+            background: #fff;
+            border: 1px solid ${color("gray", 300)};
+            color: ${color("gray", 700)};
+            box-shadow: ${shadow("xs")}, 0px 0px 0px 4px ${color("gray", 100)};
+          `;
+        case ButtonColor.empty:
+          return css`
+            color: ${color("primary", 700)};
+          `;
+        case ButtonColor.emptyGray:
+          return css`
+            color: ${color("gray", 500)};
+          `;
+        case ButtonColor.error:
+          return css`
+            background: ${color("error", 600)};
+            border: 1px solid ${color("error", 600)};
+            box-shadow: ${shadow("xs")}, 0px 0px 0px 4px ${color("error", 100)};
+          `;
+      }
+    }}
+  }
 `;
 
 const IconImage = styled.img<{ icon: ButtonIcon }>`
@@ -267,6 +362,10 @@ export enum ButtonIcon {
   trailing = "trailing",
   only = "only",
 }
+export enum ButtonFill {
+  none = "none",
+  fill = "fill",
+}
 
 type ButtonProps = {
   children?: React.ReactNode;
@@ -274,6 +373,8 @@ type ButtonProps = {
   color?: ButtonColor;
   state?: ButtonState;
   icon?: ButtonIcon;
+  fill?: any;
+  onClick?: () => void;
 };
 
 export function StyledButton({
@@ -282,9 +383,18 @@ export function StyledButton({
   state = ButtonState.default,
   color = ButtonColor.primary,
   icon = ButtonIcon.none,
+  fill,
+  onClick,
 }: ButtonProps) {
   return (
-    <ButtonStyle size={size} color={color} state={state} icon={icon}>
+    <ButtonStyle
+      size={size}
+      color={color}
+      state={state}
+      icon={icon}
+      fill={fill}
+      onClick={onClick}
+    >
       {icon == "leading" || icon == "only" ? (
         <IconImage icon={icon} src={"/icons/check.svg"} />
       ) : null}

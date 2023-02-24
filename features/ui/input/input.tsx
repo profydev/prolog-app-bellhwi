@@ -11,11 +11,13 @@ export enum InputState {
 export enum InputIcon {
   none = "none",
   icon = "icon",
+  iconSearch = "iconSearch",
 }
 
 export enum InputLabel {
   none = "none",
   label = "label",
+  custom = "custom",
 }
 
 export enum InputHint {
@@ -45,8 +47,8 @@ export const InputStyle = styled.div<{
   padding: 10px 14px;
   border-radius: 8px;
   background-color: white;
-  width: 320px;
-  height: 44px;
+  width: 100%;
+  height: 46px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -99,6 +101,12 @@ export const InputStyle = styled.div<{
       : null}}
 `;
 
+const InputArea = styled.input`
+  width: 100%;
+  border: none;
+  outline: none;
+`;
+
 const Label = styled.p`
   color: ${color("gray", 700)};
   margin: 0px 0px 6px;
@@ -118,19 +126,27 @@ type InputProps = {
   label?: InputLabel;
   hint?: InputHint;
   error?: InputError;
+  placeholder?: string;
+  labelName?: string;
 };
 
 export function Input({
   children,
+  labelName,
   state = InputState.empty,
   label = InputLabel.none,
   hint = InputHint.none,
   error = InputError.none,
   icon = InputIcon.none,
+  placeholder = "olivia@untitledui.com",
 }: InputProps) {
   return (
     <InputContainer>
-      {label == "label" ? <Label>Email</Label> : null}
+      {label == "none" ? null : label == "label" ? (
+        <Label>Email</Label>
+      ) : (
+        labelName
+      )}
       <InputStyle
         icon={icon}
         state={state}
@@ -145,8 +161,15 @@ export function Input({
             alt="mail"
             style={{ marginRight: "8px" }}
           />
+        ) : icon == "iconSearch" ? (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src="/icons/search.svg"
+            alt="search"
+            style={{ marginRight: "8px" }}
+          />
         ) : null}
-        {!children && "olivia@untitledui.com"}
+        {<InputArea placeholder="Project Name" />}
         {error == "error" ? (
           /* eslint-disable-next-line @next/next/no-img-element */
           <img

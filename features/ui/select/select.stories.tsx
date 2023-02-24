@@ -24,18 +24,33 @@ const Template: ComponentStory<typeof Select> = ({
   label,
   hint,
   error,
+  errorMsg,
+  placeholder,
+  labelName,
+  options,
+  hintMsg,
+  defaultOption,
+  onClick,
 }) => (
   <div style={{ padding: 50 }}>
-    <Select
-      icon={icon}
-      state={state}
-      label={label}
-      hint={hint}
-      error={error}
-    ></Select>
+    <div style={{ width: "320px" }}>
+      <Select
+        icon={icon}
+        state={state}
+        label={label}
+        hint={hint}
+        error={error}
+        errorMsg={errorMsg}
+        placeholder={placeholder}
+        labelName={labelName}
+        options={options}
+        hintMsg={hintMsg}
+        defaultOption={defaultOption}
+        onClick={onClick}
+      ></Select>
+    </div>
   </div>
 );
-
 export const Default = Template.bind({});
 Default.args = {
   state: SelectState.empty,

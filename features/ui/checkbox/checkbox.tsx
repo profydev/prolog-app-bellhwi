@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { color } from "@styles/theme";
+import { useState } from "react";
 
 export enum CheckboxSize {
   sm = "sm",
@@ -86,6 +87,11 @@ export const CheckboxStyle = styled.div<{
           border: 1px solid ${color("gray", 200)};
         `
       : null}
+
+    &:hover {
+    border: 1px solid ${color("primary", 600)};
+    background: ${color("primary", 50)};
+  }
 `;
 
 type CheckboxProps = {
@@ -94,6 +100,7 @@ type CheckboxProps = {
   label?: CheckboxLabel;
   state?: CheckboxState;
   checkState?: CheckState;
+  checkAll?: boolean;
 };
 
 export function Checkbox({
@@ -102,7 +109,10 @@ export function Checkbox({
   state = CheckboxState.default,
   label = CheckboxLabel.none,
   checkState = CheckState.unchecked,
+  checkAll,
 }: CheckboxProps) {
+  const [isChecked, setIsChecked] = useState(false);
+
   return (
     <CheckboxContainer size={size} state={state}>
       <CheckboxStyle
@@ -110,14 +120,18 @@ export function Checkbox({
         label={label}
         state={state}
         checkState={checkState}
+        onClick={() => {
+          isChecked ? setIsChecked(false) : setIsChecked(true);
+        }}
       >
-        {checkState == "checked" ? (
+        {checkState == "checked" || isChecked ? (
           /* eslint-disable-next-line @next/next/no-img-element */
           <img
             src={
               state == "disabled" ? "/icons/check-gray.svg" : "/icons/check.svg"
             }
             alt="checked mark"
+            style={{ userSelect: "none" }}
           />
         ) : checkState == "partlyChecked" ? (
           /* eslint-disable-next-line @next/next/no-img-element */
@@ -126,6 +140,7 @@ export function Checkbox({
               state == "disabled" ? "/icons/minus-gray.svg" : "/icons/minus.svg"
             }
             alt="partly checked mark"
+            style={{ userSelect: "none" }}
           />
         ) : null}
       </CheckboxStyle>

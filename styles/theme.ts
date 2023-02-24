@@ -18,10 +18,6 @@ type Font = {
   semibold: string;
 };
 
-type Shadow = {
-  xs: string;
-};
-
 export type Theme = {
   color: {
     gray: Color;
@@ -164,7 +160,7 @@ export const theme = {
     headerHeight: "4rem",
   },
   breakpoint: {
-    desktop: "64em",
+    desktop: "80em",
   },
   zIndex: {
     header: 1000,
