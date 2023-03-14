@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { color, displayFont, textFont } from "@styles/theme";
+import { color, displayFont, textFont, breakpoint } from "@styles/theme";
 
 type TestimonialProps = {
   primary?: boolean;
@@ -11,21 +11,25 @@ type TestimonialProps = {
 };
 
 const Container = styled.div<{ primary: any }>`
-  width: 33%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 40px 24px;
+  width: 100%;
+  padding: 64px 24px;
+  border-radius: 16px;
+  box-sizing: border-box;
   background-color: ${(props) =>
     props.primary ? color("primary", 50) : color("gray", 50)};
 
-  &:not(:first-child) {
-    margin-left: 64px;
+  @media (min-width: ${breakpoint("desktop")}) {
+    width: 33%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 24px;
+    &:not(:first-child) {
+      margin-left: 64px;
+    }
   }
-  border-radius: 16px;
-  box-sizing: border-box;
 `;
 
 const Heading = styled.p`
@@ -40,7 +44,10 @@ const Content = styled.p<{ primary: any }>`
     props.primary ? color("primary", 900) : color("gray", 900)};
   ${displayFont("xs", "medium")};
   text-align: center;
-  margin: 12px 0px 0px;
+  padding: 0px 24px;
+  @media (min-width: ${breakpoint("desktop")}) {
+    margin: 12px 0px 0px;
+  }
 `;
 
 const Profile = styled.div`
