@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Routes } from "@config/routes";
-import { color, textFont, displayFont } from "@styles/theme";
+import { color, textFont, displayFont, breakpoint } from "@styles/theme";
 import { Testimonial, StyledButton } from "@features/ui";
 import { useState } from "react";
 
@@ -17,6 +17,7 @@ const companyLogosURL = [
   "company-logos/circooles.svg",
   "company-logos/catalog.svg",
   "company-logos/quotient.svg",
+  "company-logos/hourglass.svg",
 ];
 
 const testimonials = [
@@ -90,32 +91,58 @@ const ModalContent = styled.p`
 `;
 
 const Header = styled.header`
-  width: 100%;
-  height: 80px;
-  padding: 0 7rem;
-  box-sizing: border-box;
+  position: relative;
+  padding: 16px 20px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background: white;
+  justify-content: space-between;
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    width: 100%;
+    height: 80px;
+    padding: 0 7rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+  }
 `;
 
 const MenuContainer = styled.ul`
+  display: none;
   list-style: none;
-  display: flex;
   margin-right: 4rem;
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    display: flex;
+  }
 `;
 
 const MenuList = styled.li`
-  &:not(:first-child) {
-    padding-left: 2rem;
+  @media (min-width: ${breakpoint("desktop")}) {
+    &:not(:first-child) {
+      padding-left: 2rem;
+    }
   }
 `;
 
 const MenuLink = styled.a`
   text-decoration: none;
-  color: ${color("gray", 500)};
   ${textFont("md", "medium")};
+  color: ${color("gray", 900)};
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    color: ${color("gray", 500)};
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: none;
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    display: block;
+  }
 `;
 
 const Hero = styled.div`
@@ -124,21 +151,44 @@ const Hero = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${color("gray", 50)};
-  padding-bottom: 96px;
+  padding: 64px 16px;
+  & img {
+    width: 343px;
+  }
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    padding: 0px 0px 96px 0px;
+
+    & img {
+      width: 768px;
+    }
+  }
 `;
 
 const Heading = styled.h1`
-  ${displayFont("xl", "semibold")};
-  color: ${color("gray", 900)};
-  letter-spacing: -0.02em;
-  padding-left: 8px;
+  ${displayFont("md", "semibold")};
+  text-align: center;
+  margin: 0px;
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    ${displayFont("xl", "semibold")};
+    color: ${color("gray", 900)};
+    letter-spacing: -0.02em;
+    padding-left: 8px;
+    margin: 96px 0px 0px;
+  }
 `;
 
 const Text = styled.p`
-  text-align: center;
   color: ${color("gray", 500)};
-  ${textFont("xl", "regular")};
-  padding-left: 12px;
+  text-align: center;
+  ${textFont("lg", "regular")};
+  margin: ${(props) => (props.margin ? props.margin : "0px")};
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    ${textFont("xl", "regular")};
+    padding-left: 12px;
+  }
 `;
 
 const TextSmall = styled.p`
@@ -149,29 +199,57 @@ const TextSmall = styled.p`
 `;
 
 const SocialSection = styled.div`
-  padding: 96px 0px;
-  background-color: ${color("gray", 50)};
+  padding: 64px 16px;
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    background-color: ${color("gray", 50)};
+    padding: 96px 0px;
+  }
 `;
 
 const CompanyLogos = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 1216px;
-  margin: 32px auto 0px;
-  padding-left: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  margin-top: 32px;
+
+  & img {
+    width: 155.5px;
+    height: 34px;
+    margin-left: auto;
+    @media (min-width: ${breakpoint("desktop")}) {
+      width: 100%;
+    }
+  }
+  @media (min-width: ${breakpoint("desktop")}) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1216px;
+    margin: 32px auto 0px;
+    padding-left: 12px;
+  }
 `;
 
 const TestimonialSection = styled.div`
+  @media (min-width: ${breakpoint("desktop")}) {
+    background-color: white;
+  }
   text-align: center;
-  background-color: white;
+  background-color: ${color("gray", 50)};
+  padding: 64px 0px 0px;
 `;
 
 const Testimonials = styled.div`
   display: flex;
-  padding: 0px 93.5px;
-  margin: 64px 0px 96px;
-  height: 416px;
+  flex-direction: column;
+  align-items: center;
+  @media (min-width: ${breakpoint("desktop")}) {
+    flex-direction: row;
+    padding: 0px 93.5px;
+    margin: 64px 0px 96px;
+    height: 416px;
+  }
 `;
 
 const ContactButton = styled.button`
@@ -190,8 +268,40 @@ const ContactButton = styled.button`
   }
 `;
 
+const MobileMenuButton = styled.div`
+  cursor: pointer;
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    display: none;
+  }
+`;
+
+const MobileMenuContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background: ${color("gray", 200)};
+  position: absolute;
+  top: 65%;
+  right: 5%;
+  border-radius: 4px;
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    display: none;
+  }
+`;
+
+const MobileMenuLinks = styled.ul`
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+  padding: 0px;
+`;
+
 const IssuesPage = () => {
   const [modalOn, setModalOn] = useState(false);
+  const [mobileMenuOn, setMobileMenuOn] = useState(false);
 
   return (
     <div>
@@ -248,35 +358,55 @@ const IssuesPage = () => {
             </MenuList>
           ))}
         </MenuContainer>
-        <StyledButton>
-          <a
-            href={Routes.projects}
-            style={{ color: "white", textDecoration: "none" }}
-          >
-            Open Dashboard
-          </a>
-        </StyledButton>
+        <ButtonContainer>
+          <StyledButton>
+            <a
+              href={Routes.projects}
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              Open Dashboard
+            </a>
+          </StyledButton>
+        </ButtonContainer>
+        <MobileMenuButton
+          onClick={() => {
+            mobileMenuOn ? setMobileMenuOn(false) : setMobileMenuOn(true);
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={"icons/nav-menu.svg"} />
+        </MobileMenuButton>
+
+        {mobileMenuOn ? (
+          <MobileMenuContainer>
+            <MobileMenuLinks>
+              {menuItems.map((menuItem, index) => (
+                <MenuList key={index} style={{ padding: "8px 0px" }}>
+                  <MenuLink href={menuItem.href}>{menuItem.text}</MenuLink>
+                </MenuList>
+              ))}
+              <MenuLink style={{ padding: "8px 0px" }} href={Routes.projects}>
+                Dashboard
+              </MenuLink>
+            </MobileMenuLinks>
+          </MobileMenuContainer>
+        ) : null}
       </Header>
       <Hero>
-        <Heading style={{ margin: "96px 0px 0px" }}>
-          Your Issues In Sight. At All Times.
-        </Heading>
-        <Text style={{ width: "648px", margin: "24px 0px 64px" }}>
+        <Heading>Your Issues In Sight. At All Times.</Heading>
+        <Text margin="16px 0px 64px">
           Powerful error tracking and monitoring for software applications.
           Trusted by over 4,000 startups.
         </Text>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={"images/landing-macbook.svg"}
-          style={{ marginLeft: "12px" }}
-        />
+        <img src={"images/landing-macbook.svg"} />
       </Hero>
       <SocialSection>
         <TextSmall>Join 4,000+ companies using Prolog</TextSmall>
         <CompanyLogos>
           {companyLogosURL.map((companyLogo, index) => (
             /* eslint-disable-next-line @next/next/no-img-element */
-            <img key={index} src={companyLogo} />
+            <img key={index} src={companyLogo} style={{ margin: "0 auto" }} />
           ))}
         </CompanyLogos>
       </SocialSection>
@@ -284,7 +414,7 @@ const IssuesPage = () => {
         <Heading style={{ margin: "96px 0px 0px" }}>
           Don’t Only Trust Our Words
         </Heading>
-        <Text style={{ marginBottom: "0px" }}>
+        <Text style={{ margin: "24px 0px 64px 0px", padding: "0px 16px" }}>
           Our customers around the globe share their opinions.
         </Text>
         <Testimonials>
