@@ -23,7 +23,6 @@ export const ButtonStyle = styled.button<{
   color: ButtonColor;
   state: ButtonState;
   icon: ButtonIcon;
-  fill: boolean;
 }>`
   cursor: pointer;
   border-radius: 8px;
@@ -225,12 +224,6 @@ ${(props) => {
     }
   }}
 
-  ${(props) =>
-    props.fill
-      ? css`
-          width: 100%;
-        `
-      : null}
 
  &:hover {
     ${(props) => {
@@ -362,10 +355,6 @@ export enum ButtonIcon {
   trailing = "trailing",
   only = "only",
 }
-export enum ButtonFill {
-  none = "none",
-  fill = "fill",
-}
 
 type ButtonProps = {
   children?: React.ReactNode;
@@ -373,7 +362,6 @@ type ButtonProps = {
   color?: ButtonColor;
   state?: ButtonState;
   icon?: ButtonIcon;
-  fill?: any;
   onClick?: () => void;
 };
 
@@ -383,7 +371,6 @@ export function StyledButton({
   state = ButtonState.default,
   color = ButtonColor.primary,
   icon = ButtonIcon.none,
-  fill,
   onClick,
 }: ButtonProps) {
   return (
@@ -392,7 +379,6 @@ export function StyledButton({
       color={color}
       state={state}
       icon={icon}
-      fill={fill}
       onClick={onClick}
     >
       {icon == "leading" || icon == "only" ? (
