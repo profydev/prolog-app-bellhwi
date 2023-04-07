@@ -31,6 +31,7 @@ export enum SelectError {
 }
 
 const SelectContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
 `;
@@ -122,6 +123,10 @@ export const SelectStyle = styled.div<{
 `;
 
 const OptionContainer = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 90%;
   background-color: white;
   box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.1),
     0px 4px 6px -2px rgba(16, 24, 40, 0.05);

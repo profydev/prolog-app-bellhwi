@@ -3,8 +3,8 @@ import { Select, Input, StyledButton } from "@features/ui";
 import { SelectState } from "@features/ui/select/select";
 import { InputIcon, InputLabel, InputState } from "@features/ui/input/input";
 import { ButtonIcon } from "@features/ui/button/button";
+import { breakpoint } from "@styles/theme";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -12,37 +12,54 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 25px;
+  & > button {
+    width: 100%;
+  }
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    flex-direction: row;
+    & > button {
+      width: inherit;
+    }
+  }
 `;
 
 const FilterContainer = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    flex-direction: row;
+    align-items: center;
+    width: 70%;
+  }
 `;
 
 const BoxContainer = styled.div`
-  width: 160px;
-  height: 44px;
   margin-right: 16px;
   margin-bottom: 16px;
   width: 100%;
+
+  @media (min-width: ${breakpoint("desktop")}) {
+    margin-bottom: 0px;
+  }
 `;
 
 export const IssueFilter = () => {
   const [statusSelectOpen, setStatusSelectOpen] = useState(false);
   const [levelSelectOpen, setLevelSelectOpen] = useState(false);
-  const [currentState, setCurrentState] = useState("All status");
-  const [currentLevel, setCurrentLevel] = useState("All level");
   const stateSelectOptions = ["All status", "Unresolved", "Resolved"];
   const levelSelectOptions = ["All level", "Error", "Warning", "Info"];
-  const issues = useSelector((state: any) => state.issues);
 
   return (
     <Container>
-      <StyledButton icon={ButtonIcon.leading} fill={true}>
+      <StyledButton icon={ButtonIcon.leading}>
         Resolve selected issues
       </StyledButton>
+
       <FilterContainer>
-        <BoxContainer>
+        <BoxContainer className="status-container">
           <Select
             state={statusSelectOpen ? SelectState.open : SelectState.filled}
             options={stateSelectOptions}
@@ -70,7 +87,7 @@ export const IssueFilter = () => {
             }}
           ></Select>
         </BoxContainer>
-        <BoxContainer>
+        <BoxContainer className="project-container">
           <Input
             state={InputState.empty}
             icon={InputIcon.iconSearch}
