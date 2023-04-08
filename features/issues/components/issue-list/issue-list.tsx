@@ -40,7 +40,7 @@ const HeaderRow = styled.tr`
   border-bottom: 1px solid ${color("gray", 200)};
 
   @media (min-width: ${breakpoint("desktop")}) {
-    display: table-row;
+    display: none;
   }
 `;
 
