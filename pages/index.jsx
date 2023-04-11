@@ -3,50 +3,13 @@ import { Routes } from "@config/routes";
 import { color, textFont, displayFont, breakpoint } from "@styles/theme";
 import { Testimonial, StyledButton } from "@features/ui";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 const menuItems = [
   { text: "Home", href: Routes.home },
   { text: "Products", href: Routes.products },
   { text: "Documentation", href: Routes.documentation },
   { text: "Pricing", href: Routes.pricing },
-];
-
-const companyLogosURL = [
-  "company-logos/layers.svg",
-  "company-logos/sisyphus.svg",
-  "company-logos/circooles.svg",
-  "company-logos/catalog.svg",
-  "company-logos/quotient.svg",
-  "company-logos/hourglass.svg",
-];
-
-const testimonials = [
-  {
-    primary: true,
-    heading: "Frontend Development",
-    content:
-      "Prolog has saved us many times. We get an alert, investigate the error, and fix it. That simple.",
-    avatar: "avatars/mollie.svg",
-    author: "Mollie Hall",
-    company: "Web Developer, Sisyphus",
-  },
-  {
-    heading: "Microservice Architectures",
-    content:
-      "Our services fail from time to time. That’s normal. But with Prolog we’re able to track the issue down in no time. ",
-    avatar: "avatars/alec.svg",
-    author: "Alec Whitten",
-    company: "Software Architect, Layers",
-  },
-  {
-    primary: true,
-    heading: "Backend Servers",
-    content:
-      "Prolog’s UI is beautiful and intuitive. It’s simple to find bugs and our devs are always on top of pressing issues.",
-    avatar: "avatars/kelly.svg",
-    author: "Kelly Williams",
-    company: "Engineering Manager, Catalog",
-  },
 ];
 
 const ModalContainer = styled.div`
@@ -302,6 +265,18 @@ const MobileMenuLinks = styled.ul`
 const IssuesPage = () => {
   const [modalOn, setModalOn] = useState(false);
   const [mobileMenuOn, setMobileMenuOn] = useState(false);
+  const { isLoading, error, data } = useQuery(["myData"], () =>
+    fetch("https://prolog-api.profy.dev/content-page/home").then((res) =>
+      res.json()
+    )
+  );
+
+  console.log(data);
+
+  // Check if data exists before rendering it
+  if (!data) {
+    return null;
+  }
 
   return (
     <div>
@@ -393,34 +368,39 @@ const IssuesPage = () => {
         ) : null}
       </Header>
       <Hero>
-        <Heading>Your Issues In Sight. At All Times.</Heading>
-        <Text margin="16px 0px 64px">
-          Powerful error tracking and monitoring for software applications.
-          Trusted by over 4,000 startups.
-        </Text>
+        <Heading>{data.sections[0].title}</Heading>
+        <Text margin="16px 0px 64px">{data.sections[0].subtitle}</Text>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={"images/landing-macbook.svg"} />
+        <img src={data.sections[0].image.src} />
       </Hero>
       <SocialSection>
-        <TextSmall>Join 4,000+ companies using Prolog</TextSmall>
+        <TextSmall>{data.sections[1].title}</TextSmall>
         <CompanyLogos>
-          {companyLogosURL.map((companyLogo, index) => (
+          {data.sections[1].companies.map((companyLogo, index) => (
             /* eslint-disable-next-line @next/next/no-img-element */
-            <img key={index} src={companyLogo} style={{ margin: "0 auto" }} />
+            <img
+              key={index}
+              src={companyLogo.logo}
+              style={{ margin: "0 auto" }}
+            />
           ))}
         </CompanyLogos>
       </SocialSection>
       <TestimonialSection>
         <Heading style={{ margin: "96px 0px 0px" }}>
-          Don’t Only Trust Our Words
+          {data.sections[2].title}
         </Heading>
         <Text style={{ margin: "24px 0px 64px 0px", padding: "0px 16px" }}>
-          Our customers around the globe share their opinions.
+          {data.sections[2].subtitle}
         </Text>
         <Testimonials>
-          {testimonials.map((testimonial, index) => (
-            <Testimonial {...testimonial} key={index}></Testimonial>
-          ))}
+          {data.sections[2].testimonials.map((testimonial, index) =>
+            index % 2 != 0 ? (
+              <Testimonial {...testimonial} key={index}></Testimonial>
+            ) : (
+              <Testimonial {...testimonial} primary key={index}></Testimonial>
+            )
+          )}
         </Testimonials>
       </TestimonialSection>
       <ContactButton onClick={() => setModalOn(true)}>
