@@ -3,11 +3,12 @@ import { color, displayFont, textFont, breakpoint } from "@styles/theme";
 
 type TestimonialProps = {
   primary?: boolean;
-  heading: string;
-  content: string;
-  author: string;
-  company: string;
-  avatar: string;
+  title: string;
+  text: string;
+  userName: string;
+  userCompany: string;
+  userRole: string;
+  userImage: any;
 };
 
 const Container = styled.div<{ primary: any }>`
@@ -76,21 +77,25 @@ const Company = styled.p<{ primary: any }>`
 
 export function Testimonial({
   primary,
-  heading,
-  content,
-  author,
-  company,
-  avatar,
+  title,
+  text,
+  userName,
+  userRole,
+  userCompany,
+  userImage,
 }: TestimonialProps) {
+  console.log(userImage.src.replace("jpg", "png"));
   return (
     <Container primary={primary}>
-      <Heading>{heading}</Heading>
-      <Content primary={primary}>{content}</Content>
+      <Heading>{title}</Heading>
+      <Content primary={primary}>{text}</Content>
       <Profile>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={avatar} />
-        <Author primary={primary}>{author}</Author>
-        <Company primary={primary}>{company}</Company>
+        <img src={userImage.src.replace("jpg", "png")} />
+        <Author primary={primary}>{userName}</Author>
+        <Company primary={primary}>
+          {userRole}, {userCompany}
+        </Company>
       </Profile>
     </Container>
   );
