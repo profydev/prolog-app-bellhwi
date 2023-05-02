@@ -27,10 +27,11 @@
 
 ## Features
 
-- 📄 Project list with summary: [Example code](https://github.com/profydev/prolog-app-bellhwi/blob/main/features/projects/components/project-list/project-list.tsx#L70-L111)
-- 📫 REST API interaction: [Example code](https://github.com/profydev/prolog-app-bellhwi/blob/main/features/projects/api/use-projects.tsx)
-- 📋 Issue list table : [Example code](https://github.com/profydev/prolog-app-bellhwi/blob/main/features/issues/components/issue-list/issue-list.tsx#L65-L143)
-- 📱 Responsive design
+- 📄 Project list: [Example code](https://github.com/profydev/prolog-app-bellhwi/blob/main/features/projects/components/project-list/project-list.tsx#L70-L111)
+- 📫 REST API interaction: [Example code](https://github.com/profydev/prolog-app-bellhwi/blob/main/api/issues.ts)
+- 📋 Issue list table : [Example code](https://github.com/profydev/prolog-app-bellhwi/blob/main/features/issues/components/issue-list/issue-list.tsx#L89-L184)
+- 🔬 Test with Cypress: [Example code](https://github.com/profydev/prolog-app-bellhwi/blob/main/cypress/e2e/issue-list.cy.ts)
+- 📱 Ui kit: [Example code](https://github.com/profydev/prolog-app-bellhwi/blob/main/features/ui/button/button.stories.tsx)
 
 ## Tech
 
